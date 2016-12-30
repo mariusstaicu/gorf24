@@ -5,10 +5,10 @@
 #  Project home:  <https://github.com/galaktor/gorf24>
 #  Licensed under The MIT License (see README and LICENSE files)
 
-rfhdrdir=../RF24/librf24-rpi/librf24
+rfhdrdir=../RF24/RPi/RF24/
 rflibdir=$rfhdrdir
 
-g++ -g -O2 -fPIC -I$rfhdrdir -I. -L$rflibdir  -lrf24 -shared -o librf24_c.so *.cpp -ansi -pedantic
+g++ -g -O2 -fPIC -I$rfhdrdir -lrf24-bcm -I. -L$rflibdir  -shared -o librf24_c.so *.cpp -ansi -pedantic
 
 cp librf24_c.so /usr/local/lib
 
@@ -16,3 +16,4 @@ cp librf24_c.so /usr/local/lib
 # will only work if /usr/local/lib is in /etc/ld.so.conf!
 # see README for details
 ldconfig
+

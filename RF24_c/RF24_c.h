@@ -27,10 +27,10 @@ typedef uint8_t rf24_crclength_val;
 #define DLL
 #endif
 
-DLL RF24Handle new_rf24(cstring spidevice, uint32_t spispeed, uint8_t ce);
+DLL RF24Handle new_rf24(uint8_t ce, uint8_t cs, uint32_t spispeed);
 DLL void rf24_delete(RF24Handle rf_handle);
 DLL void rf24_begin(RF24Handle rf_handle);
-DLL void rf24_resetcfg(RF24Handle rf_handle);
+//DLL void rf24_resetcfg(RF24Handle rf_handle);
 DLL void rf24_startListening(RF24Handle rf_handle);
 DLL void rf24_stopListening(RF24Handle rf_handle);
 DLL cbool rf24_write(RF24Handle rf_handle, const void* source, uint8_t len);

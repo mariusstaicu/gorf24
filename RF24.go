@@ -15,8 +15,8 @@ package gorf24
 import "C"
 
 import (
-//	"encoding/binary"
-//	"fmt"
+	//	"encoding/binary"
+	//	"fmt"
 	"unsafe"
 )
 
@@ -28,9 +28,9 @@ import (
 //   channel for available data, like time.Tick? r.Available() <-chan []byte  or so?
 
 type R struct {
-	cptr C.RF24Handle
+	cptr        C.RF24Handle
 	buffer_size uint8
-	buffer []byte
+	buffer      []byte
 }
 
 /*
@@ -61,9 +61,9 @@ func main() {
 }
 */
 
-func New(spidevice string, spispeed uint32, cepin uint8) R {
+func New(cepin uint8, cspin uint8, spispeed uint32) R {
 	var r R
-	r.cptr = C.new_rf24(C.CString(spidevice), C.uint32_t(spispeed), C.uint8_t(cepin))
+	r.cptr = C.new_rf24(C.uint8_t(cepin), C.uint8_t(cspin), C.uint32_t(spispeed))
 	r.buffer = make([]byte, 128) // max payload length according to nrf24 spec
 
 	return r
@@ -78,9 +78,11 @@ func (r *R) Begin() {
 	C.rf24_begin(r.cptr)
 }
 
+/*
 func (r *R) ResetCfg() {
 	C.rf24_resetcfg(r.cptr)
 }
+*/
 
 func (r *R) StartListening() {
 	C.rf24_startListening(r.cptr)
@@ -118,10 +120,9 @@ func (r *R) IsAckPayloadAvailable() bool {
 	return gobool(C.rf24_isAckPayloadAvailable(r.cptr))
 }
 
-
 func (r *R) Read(length uint8) ([]byte, bool) {
 	ok := gobool(C.rf24_read(r.cptr, unsafe.Pointer(&r.buffer[0]), C.uint8_t(length)))
-	return r.buffer[:length],ok
+	return r.buffer[:length], ok
 }
 
 func (r *R) OpenWritingPipe(address uint64) {
@@ -272,3 +273,4 @@ func cbool(b bool) C.cbool {
 
 	return C.cbool(0)
 }
+

@@ -2,31 +2,24 @@
     Author email:  <galaktor@gmx.de>
     Project home:  <https://github.com/galaktor/gorf24>
     Licensed under The MIT License (see README and LICENSE files) */
-
 #pragma once
-
 #include <stdint.h>
-
 typedef void* RF24Handle;
 typedef const char* cstring;
-
 // poor man's boolean
 typedef enum { FALSE = 0, TRUE } cbool;
 #define cbool(X) ((X) ? TRUE : FALSE)
-
 // cannot re-use enums because they are delcared in c++
 // cannot re-declare them, either, won't compile
 // so just use numbers and add type safety in higher layer wrapper
 typedef uint8_t rf24_pa_dbm_val;
 typedef uint8_t rf24_datarate_val;
 typedef uint8_t rf24_crclength_val;
-
 #ifdef __cplusplus
 #define DLL extern "C"
 #else
 #define DLL
 #endif
-
 DLL RF24Handle new_rf24(uint8_t ce, uint8_t cs, uint32_t spispeed);
 DLL void rf24_delete(RF24Handle rf_handle);
 DLL void rf24_begin(RF24Handle rf_handle);

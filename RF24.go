@@ -1,7 +1,13 @@
 /*  Copyright 2013, Raphael Estrada
     Author email:  <galaktor@gmx.de>
     Project home:  <https://github.com/galaktor/gorf24>
-    Licensed under The MIT License (see README and LICENSE files) */
+    Licensed under The MIT License (see README and LICENSE files)
+
+    Updated to RF24 v.13
+    2017, Marian Craciunescu, Marius Staicu
+    Authors email:  <marian.craciunescu@esolutions.ro>, <marius.staicu@esolutions.ro>
+    Project home:  <https://github.com/mariusstaicu/gorf24>
+*/
 package gorf24
 
 /*
@@ -67,11 +73,10 @@ func (r *R) Begin() {
 	C.rf24_begin(r.cptr)
 }
 
-/*
 func (r *R) ResetCfg() {
 	C.rf24_resetcfg(r.cptr)
 }
-*/
+
 func (r *R) StartListening() {
 	C.rf24_startListening(r.cptr)
 }
@@ -231,3 +236,5 @@ func cbool(b bool) C.cbool {
 	}
 	return C.cbool(0)
 }
+
+// TODO: @Marian Craciunescu add missing function implementation.

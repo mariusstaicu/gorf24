@@ -49,7 +49,7 @@ type LibRF24 interface {
 	WriteAckPayload(pipe uint8, data []byte, length uint8)
 	IsAckPayloadAvailable() bool
 	WhatHappened() (tx_ok, tx_fail, rx_ready bool)
-	StartWrite(data []byte, length uint8)
+	StartWrite(data []byte, length uint8, multicast bool)
 	StartFastWrite(data []byte, length uint8, multicast bool, startTx bool)
 	ReUseTx()
 	FlushTx() uint8
@@ -189,7 +189,7 @@ func (r *RF24) PowerUp() {
 }
 
 func (r *RF24) WriteMulticast(data []byte, length uint8, multicast bool) bool {
-	return gobool(C.rf24_writeMulticast(r.cptr, unsafe.Pointer(&data), C.uint8_t(len), cbool(multicast)))
+	return gobool(C.rf24_writeMulticast(r.cptr, unsafe.Pointer(&data), C.uint8_t(length), cbool(multicast)))
 }
 
 func (r *RF24) WriteFast(data []byte, length uint8) bool {
@@ -227,8 +227,8 @@ func (r *RF24) WhatHappened() (tx_ok, tx_fail, rx_ready bool) {
 	return
 }
 
-func (r *RF24) StartWrite(data []byte, length uint8) {
-	C.rf24_startWrite(r.cptr, unsafe.Pointer(&data), C.uint8_t(length))
+func (r *RF24) StartWrite(data []byte, length uint8, multicast bool) {
+	C.rf24_startWrite(r.cptr, unsafe.Pointer(&data), C.uint8_t(length), cbool(multicast))
 }
 
 func (r *RF24) StartFastWrite(data []byte, length uint8, multicast bool, startTx bool) {

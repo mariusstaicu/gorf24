@@ -8,11 +8,7 @@ package gorf24
   #include <stdio.h>
 */
 import "C"
-//import (
-//	// "encoding/binary"
-//	// "fmt"
-//	"unsafe"
-//)
+
 func gobool(b C.cbool) bool {
 	if b == C.cbool(0) {
 		return false

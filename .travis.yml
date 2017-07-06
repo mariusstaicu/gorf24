@@ -1,0 +1,11 @@
+language: go
+
+go:
+  - tip
+
+sudo: required
+
+install: true
+
+script:
+  - ./build.sh

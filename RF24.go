@@ -189,19 +189,19 @@ func (r *RF24) PowerUp() {
 }
 
 func (r *RF24) WriteMulticast(data []byte, length uint8, multicast bool) bool {
-	return gobool(C.rf24_writeMulticast(r.cptr, unsafe.Pointer(&data), C.uint8_t(length), cbool(multicast)))
+	return gobool(C.rf24_writeMulticast(r.cptr, unsafe.Pointer(&data[0]), C.uint8_t(length), cbool(multicast)))
 }
 
 func (r *RF24) WriteFast(data []byte, length uint8) bool {
-	return gobool(C.rf24_writeFast(r.cptr, unsafe.Pointer(&data), C.uint8_t(length)))
+	return gobool(C.rf24_writeFast(r.cptr, unsafe.Pointer(&data[0]), C.uint8_t(length)))
 }
 
 func (r *RF24) WriteFastMulticast(data []byte, length uint8, multicast bool) bool {
-	return gobool(C.rf24_writeFastMulticast(r.cptr, unsafe.Pointer(&data), C.uint8_t(length), cbool(multicast)))
+	return gobool(C.rf24_writeFastMulticast(r.cptr, unsafe.Pointer(&data[0]), C.uint8_t(length), cbool(multicast)))
 }
 
 func (r *RF24) WriteBlocking(data []byte, length uint8, timeout uint32) bool {
-	return gobool(C.rf24_writeBlocking(r.cptr, unsafe.Pointer(&data), C.uint8_t(length), C.uint32_t(timeout)))
+	return gobool(C.rf24_writeBlocking(r.cptr, unsafe.Pointer(&data[0]), C.uint8_t(length), C.uint32_t(timeout)))
 }
 
 func (r *RF24) IsTxStandBy() bool {
@@ -213,7 +213,7 @@ func (r *RF24) IsTxStandByExtended(timeout uint32, startTx bool) bool {
 }
 
 func (r *RF24) WriteAckPayload(pipe uint8, data []byte, length uint8) {
-	C.rf24_writeAckPayload(r.cptr, C.uint8_t(pipe), unsafe.Pointer(&data), C.uint8_t(length))
+	C.rf24_writeAckPayload(r.cptr, C.uint8_t(pipe), unsafe.Pointer(&data[0]), C.uint8_t(length))
 }
 
 func (r *RF24) IsAckPayloadAvailable() bool {
@@ -228,11 +228,11 @@ func (r *RF24) WhatHappened() (tx_ok, tx_fail, rx_ready bool) {
 }
 
 func (r *RF24) StartWrite(data []byte, length uint8, multicast bool) {
-	C.rf24_startWrite(r.cptr, unsafe.Pointer(&data), C.uint8_t(length), cbool(multicast))
+	C.rf24_startWrite(r.cptr, unsafe.Pointer(&data[0]), C.uint8_t(length), cbool(multicast))
 }
 
 func (r *RF24) StartFastWrite(data []byte, length uint8, multicast bool, startTx bool) {
-	C.rf24_startFastWrite(r.cptr, unsafe.Pointer(&data), C.uint8_t(length), cbool(multicast), cbool(startTx))
+	C.rf24_startFastWrite(r.cptr, unsafe.Pointer(&data[0]), C.uint8_t(length), cbool(multicast), cbool(startTx))
 }
 
 func (r *RF24) ReUseTx() {

@@ -22,7 +22,25 @@ I developed it on/for the Raspberry Pi running Arch Linux for ARM. The Pi has GP
 $> go get github.com/mariusstaicu/gorf24
 ```
 
-TODO: setup details with Arch on Pi
+## Build nRF24 Wrapper on RPi
+```bash
+make
+```
+
+## Cross compile nRF24 wrapper
+```
+ make CC=<gcc_compiler> CXX=<g++_compiler> GOOS=linux GOARCH=arm GOARM=6 (RPi Zero)
+```
+## Where to get gcc-linaro compilers
+
+### from RPi tools repo: 
+```
+git clone -depth=1 https://github.com/raspberrypi/tools ~/rpi_tools
+export PATH="$PATH:$HOME/rpi_tools/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/bin"
+make CC=arm-linux-gnueabihf-gcc CXX=arm-linux-gnueabihf-gcc GOOS=linux GOARCH=arm GOARM=6
+```
+### building your own using crosstool-ng - great tutorial here:
+http://elinux.org/RPi_Linaro_GCC_Compilation
 
 # COPYRIGHT AND LICENSE
 

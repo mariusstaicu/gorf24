@@ -3,9 +3,12 @@ language: go
 go:
   - tip
 
-sudo: required
+sudo: false
 
 install: true
 
+before_script:
+  - go get github.com/karalabe/xgo
+
 script:
-  - ./build.sh
+  - xgo --deps=./lib --targets=linux/arm-6 .

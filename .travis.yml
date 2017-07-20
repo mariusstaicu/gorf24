@@ -14,4 +14,4 @@ before_script:
   - go get github.com/karalabe/xgo
 
 script:
-  - xgo --deps=./lib --targets=linux/arm-6 .
+  - xgo --targets=linux/arm-6 .

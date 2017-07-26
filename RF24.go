@@ -153,8 +153,16 @@ func (r *RF24) Read(length uint8) ([]byte, bool) {
 	return r.buffer[:length], ok
 }
 
+func (r *RF24) OpenWritingPipe(address *uint8) {
+	C.rf24_openWritingPipe(r.cptr, unsafe.Pointer(address))
+}
+
 func (r *RF24) OpenWritingPipeDeprecated(address uint64) {
 	C.rf24_openWritingPipeDeprecated(r.cptr, C.uint64_t(address))
+}
+
+func (r *RF24) OpenReadingPipe(pipe uint8, address *uint8) {
+	C.rf24_openReadingPipe(r.cptr, C.uint8_t(pipe), unsafe.Pointer(address))
 }
 
 func (r *RF24) OpenReadingPipeDeprecated(pipe uint8, address uint64) {

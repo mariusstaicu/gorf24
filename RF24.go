@@ -32,8 +32,10 @@ type LibRF24 interface {
 	StopListening()
 	Available() bool
 	Read(length uint8) ([]byte, bool)
-	OpenWritingPipe(address uint64)
-	OpenReadingPipe(pipe uint8, address uint64)
+	OpenWritingPipeDeprecated(address uint64)
+	OpenReadingPipeDeprecated(pipe uint8, address uint64)
+	OpenWritingPipe(address *uint8)
+	OpenReadingPipe(pipe uint8, address *uint8)
 	Write(data []byte, length uint8) bool
 	PrintDetails()
 	AvailablePipe() (bool, uint8)
@@ -151,12 +153,12 @@ func (r *RF24) Read(length uint8) ([]byte, bool) {
 	return r.buffer[:length], ok
 }
 
-func (r *RF24) OpenWritingPipe(address uint64) {
-	C.rf24_openWritingPipe(r.cptr, C.uint64_t(address))
+func (r *RF24) OpenWritingPipeDeprecated(address uint64) {
+	C.rf24_openWritingPipeDeprecated(r.cptr, C.uint64_t(address))
 }
 
-func (r *RF24) OpenReadingPipe(pipe uint8, address uint64) {
-	C.rf24_openReadingPipe(r.cptr, C.uint8_t(pipe), C.uint64_t(address))
+func (r *RF24) OpenReadingPipeDeprecated(pipe uint8, address uint64) {
+	C.rf24_openReadingPipeDeprecated(r.cptr, C.uint8_t(pipe), C.uint64_t(address))
 }
 
 // TODO: implement Reader/Writer compatible interfaces

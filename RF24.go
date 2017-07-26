@@ -154,7 +154,7 @@ func (r *RF24) Read(length uint8) ([]byte, bool) {
 }
 
 func (r *RF24) OpenWritingPipe(address *uint8) {
-	C.rf24_openWritingPipe(r.cptr, unsafe.Pointer(address))
+	C.rf24_openWritingPipe(r.cptr, address)
 }
 
 func (r *RF24) OpenWritingPipeDeprecated(address uint64) {
@@ -162,7 +162,7 @@ func (r *RF24) OpenWritingPipeDeprecated(address uint64) {
 }
 
 func (r *RF24) OpenReadingPipe(pipe uint8, address *uint8) {
-	C.rf24_openReadingPipe(r.cptr, C.uint8_t(pipe), unsafe.Pointer(address))
+	C.rf24_openReadingPipe(r.cptr, C.uint8_t(pipe), address)
 }
 
 func (r *RF24) OpenReadingPipeDeprecated(pipe uint8, address uint64) {

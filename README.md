@@ -87,8 +87,8 @@ http://maniacbug.wordpress.com/
 
 
 # TODOS
-* Makefiles instead of shell scripts
-* maybe better way of installing via go get?
+* ~~Makefiles instead of shell scripts~~
+* ~~maybe better way of installing via go get?~~
 * more testing of correct wrapping, data types etc
 * branch that includes verified-working snap of RF24-rpi
 * download with RPi binaries for armv6?

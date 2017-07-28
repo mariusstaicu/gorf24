@@ -1,11 +1,17 @@
 language: go
 
+services:
+  - docker
+
 go:
   - tip
 
-sudo: required
+sudo: false
 
 install: true
 
+before_script:
+  - go get github.com/karalabe/xgo
+
 script:
-  - ./build.sh
+  - xgo --targets=linux/arm-6 .

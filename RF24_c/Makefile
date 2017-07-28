@@ -1,18 +1,17 @@
+include Makefile.inc
+
 all:build install
 
-RF24_LIB_ROOT=../RF24/
-CC=g++
-CC_FLAGS=-g -O2 -fPIC -Wall -ansi -pedantic -shared
-
 build:
-	$(CC)  $(CC_FLAGS) -I$(RF24_LIB_ROOT) -lrf24-bcm -I. -L$(RF24_LIB_ROOT)  -o librf24_c.so *.cpp
+	$(CXX) $(CFLAGS) -o librf24_c.so *.cpp
 
 install:
-	@echo "Copying cgo wrapper in /usr/lib. Sudo needed."
-	cp librf24_c.so /usr/local/lib
-	cp librf24_c.so /usr/lib
-	@echo "Executing ldconfig."
-	ldconfig
+	@echo "Installing cgo headers..."
+	cp RF24_c.h $(INCLUDE_DIR)
+	@echo "Installing cgo lib..."
+	cp librf24_c.so $(LIB_DIR)
 
 clean:
-	rm -rf *.so
+	rm librf24_c.so
+	rm $(LIB_DIR)/librf24_c.so
+	rm $(Include_DIR)/RF24_c.h

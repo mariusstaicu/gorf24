@@ -34,7 +34,7 @@ type LibRF24 interface {
 	Read(length uint8) ([]byte, bool)
 	OpenWritingPipeDeprecated(address uint64)
 	OpenReadingPipeDeprecated(pipe uint8, address uint64)
-	OpenWritingPipe(address []uint8)
+	OpenWritingPipe(address *uint8)
 	OpenReadingPipe(pipe uint8, address *uint8)
 	Write(data []byte, length uint8) bool
 	PrintDetails()
@@ -153,8 +153,10 @@ func (r *RF24) Read(length uint8) ([]byte, bool) {
 	return r.buffer[:length], ok
 }
 
-func (r *RF24) OpenWritingPipe(address []uint8) {
-	C.rf24_openWritingPipe(r.cptr, unsafe.Pointer(&address[0]))
+func (r *RF24) OpenWritingPipe(address *uint8) {
+	var add *C.uint8_t
+	add = unsafe.Pointer(address)
+	C.rf24_openWritingPipe(r.cptr, add)
 }
 
 func (r *RF24) OpenWritingPipeDeprecated(address uint64) {

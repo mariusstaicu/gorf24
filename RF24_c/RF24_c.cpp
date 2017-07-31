@@ -72,7 +72,7 @@ cbool rf24_write(RF24Handle rf_handle, const void *source, uint8_t len) {
     return cbool(r->write(source, len));
 }
 
-void rf24_openWritingPipe(RF24Handle rf_handle, const uint8_t *address) {
+void rf24_openWritingPipe(RF24Handle rf_handle, uint8_t *address) {
     RF24 *r = to_rf(rf_handle);
     r->openWritingPipe(address);
 }
@@ -87,7 +87,7 @@ void rf24_openReadingPipeDeprecated(RF24Handle rf_handle, uint8_t pipe, uint64_t
     r->openReadingPipe(pipe, address);
 }
 
-void rf24_openReadingPipe(RF24Handle rf_handle, uint8_t pipe, const uint8_t *address) {
+void rf24_openReadingPipe(RF24Handle rf_handle, uint8_t pipe, uint8_t *address) {
     RF24 *r = to_rf(rf_handle);
     r->openReadingPipe(pipe, address);
 }

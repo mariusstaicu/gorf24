@@ -6,7 +6,7 @@ services:
 go:
   - tip
 
-sudo: true
+sudo: required
 
 install: true
 

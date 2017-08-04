@@ -3,7 +3,7 @@ include Makefile.inc
 all:build install
 
 build:
-	$(CXX) -shared -o librf24_c.so *.cpp
+	$(CXX) $(CXX_FLAGS) -o librf24_c.so *.cpp
 
 install:
 	@echo "Installing cgo headers..."

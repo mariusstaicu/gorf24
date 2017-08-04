@@ -6,12 +6,12 @@ services:
 go:
   - tip
 
-sudo: false
+sudo: true
 
 install: true
 
 before_script:
-  - go get github.com/karalabe/xgo
+  - make
 
 script:
-  - xgo --targets=linux/arm-6 .
+  - go build ./...

@@ -3,7 +3,7 @@ SHELL = /bin/bash
 
 all:build
 
-build: build-rf24 build-wrapper build-go
+build: build-rf24 build-wrapper
 
 build-rf24: clone-rf24
 	@echo Building RF24 shared libraries
@@ -21,10 +21,6 @@ clone-rf24:
 build-wrapper:
 	@echo Building ANSI C wrapper for C++ RF24 library
 	cd rf24_c && $(MAKE); \
-
-build-go:
-	@echo go build
-	go build -v ./...
 
 clean:
 	$(MAKE) clean -C rf24_c; \

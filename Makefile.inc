@@ -1,3 +1,1 @@
-export LIB_DIR = $(shell pwd)/lib
-export INCLUDE_DIR = $(shell pwd)/include
-export CGO_ENABLED ?= 1
+rf24.repo=https://github.com/nRF24/RF24

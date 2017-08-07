@@ -4,14 +4,14 @@ services:
   - docker
 
 go:
-  - tip
+  - 1.8.3
 
-sudo: false
+sudo: required
 
 install: true
 
 before_script:
-  - go get github.com/karalabe/xgo
+  - sudo make
 
 script:
-  - xgo --targets=linux/arm-6 .
+  - go build ./...

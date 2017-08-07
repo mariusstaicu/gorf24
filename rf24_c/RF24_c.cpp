@@ -8,8 +8,8 @@
     Authors email:  <marian.craciunescu@esolutions.ro>, <marius.staicu@esolutions.ro>
     Project home:  <https://github.com/mariusstaicu/gorf24>
     */
+#include <RF24/RF24.h>
 #include "RF24_c.h"
-#include "RF24.h"
 #include <string>
 
 #define to_rfh(ptr) (reinterpret_cast<RF24Handle>(ptr))

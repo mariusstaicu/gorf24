@@ -1,9 +1,8 @@
 package gorf24
 
 /*
-  #cgo LDFLAGS: -L${SRCDIR}/lib -lrf24_c -lrf24
-  #cgo CFLAGS: -I${SRCDIR}/include
-  #include "RF24_c.h"
+  #cgo LDFLAGS: -lrf24_c -lrf24
+  #include <RF24_c.h>
   #include <stdio.h>
 */
 import "C"

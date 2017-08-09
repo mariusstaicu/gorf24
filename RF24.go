@@ -28,8 +28,10 @@ type LibRF24 interface {
 	StopListening()
 	Available() bool
 	Read(length uint8) ([]byte, bool)
-	OpenWritingPipe(address uint64)
-	OpenReadingPipe(pipe uint8, address uint64)
+	OpenWritingPipeDeprecated(address uint64)
+	OpenReadingPipeDeprecated(pipe uint8, address uint64)
+	OpenWritingPipe(address []byte)
+	OpenReadingPipe(pipe uint8, address []byte)
 	Write(data []byte, length uint8) bool
 	PrintDetails()
 	AvailablePipe() (bool, uint8)
@@ -118,12 +120,23 @@ func (r *RF24) Read(length uint8) ([]byte, bool) {
 	return r.buffer[:length], ok
 }
 
-func (r *RF24) OpenWritingPipe(address uint64) {
-	C.rf24_openWritingPipe(r.cptr, C.uint64_t(address))
+func (r *RF24) OpenWritingPipe(address []byte) {
+	cPointer := (*C.uint8_t)(unsafe.Pointer(&address[0]))
+	C.rf24_openWritingPipe(r.cptr, cPointer)
 }
 
-func (r *RF24) OpenReadingPipe(pipe uint8, address uint64) {
-	C.rf24_openReadingPipe(r.cptr, C.uint8_t(pipe), C.uint64_t(address))
+func (r *RF24) OpenWritingPipeDeprecated(address uint64) {
+	C.rf24_openWritingPipeDeprecated(r.cptr, C.uint64_t(address))
+}
+
+func (r *RF24) OpenReadingPipe(pipe uint8, address []byte) {
+	var add *C.uint8_t
+	add = (*C.uint8_t)(unsafe.Pointer(&address[0]))
+	C.rf24_openReadingPipe(r.cptr, C.uint8_t(pipe), add)
+}
+
+func (r *RF24) OpenReadingPipeDeprecated(pipe uint8, address uint64) {
+	C.rf24_openReadingPipeDeprecated(r.cptr, C.uint8_t(pipe), C.uint64_t(address))
 }
 
 func (r *RF24) Write(data []byte, length uint8) bool {

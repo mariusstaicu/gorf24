@@ -51,9 +51,13 @@ DLL cbool rf24_read(RF24Handle rf_handle, void *target, uint8_t len);
 
 DLL cbool rf24_write(RF24Handle rf_handle, const void *source, uint8_t len);
 
-DLL void rf24_openWritingPipe(RF24Handle rf_handle, uint64_t address);
+DLL void rf24_openWritingPipe(RF24Handle rf_handle, uint8_t *address);
 
-DLL void rf24_openReadingPipe(RF24Handle rf_handle, uint8_t pipe, uint64_t address);
+DLL void rf24_openWritingPipeDeprecated(RF24Handle rf_handle, uint64_t address);
+
+DLL void rf24_openReadingPipe(RF24Handle rf_handle, uint8_t pipe, uint8_t *address);
+
+DLL void rf24_openReadingPipeDeprecated(RF24Handle rf_handle, uint8_t pipe, uint64_t address);
 
 DLL void rf24_printDetails(RF24Handle rf_handle);
 // correspond to bool available(uint8_t* pipe_num);

@@ -20,9 +20,8 @@ I developed it on/for the Raspberry Pi running Arch Linux for ARM. The Pi has GP
 ## HOW TO INSTALL
 ```
 $> go get github.com/mariusstaicu/gorf24
+$> sudo make install
 ```
-
-TODO: setup details with Arch on Pi
 
 # COPYRIGHT AND LICENSE
 
@@ -69,8 +68,8 @@ http://maniacbug.wordpress.com/
 
 
 # TODOS
-* Makefiles instead of shell scripts
-* maybe better way of installing via go get?
+* ~~Makefiles instead of shell scripts~~
+* ~~maybe better way of installing via go get?~~
 * more testing of correct wrapping, data types etc
 * branch that includes verified-working snap of RF24-rpi
 * download with RPi binaries for armv6?

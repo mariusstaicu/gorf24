@@ -11,16 +11,12 @@
 package gorf24
 
 /*
-  #cgo LDFLAGS: -L./RF24_c
-  #cgo LDFLAGS: -lrf24_c
-  #cgo CFLAGS: -I./RF24_c
-  #include "RF24_c.h"
+  #cgo LDFLAGS: -lrf24_c -lrf24
+  #include <RF24_c.h>
   #include <stdio.h>
 */
 import "C"
 import (
-	// "encoding/binary"
-	// "fmt"
 	"unsafe"
 )
 
@@ -82,41 +78,12 @@ type LibRF24 interface {
 	MaskIRQ(txOk, txFail, rxReady bool)
 }
 
-// TODO: more idiomatic:
-//   error handling
-//   Read/Write interfaces
-//   possibly more conventional byte slice passing
-//   more type safety?
-//   channel for available data, like time.Tick? r.Available() <-chan []byte  or so?
 type RF24 struct {
 	cptr        C.RF24Handle
 	buffer_size uint8
 	buffer      []byte
 }
 
-/*
-func main() {
-	var pipe uint64 = 0xF0F0F0F0E1
-	r := New(25, 8, 32)
-	defer r.Delete()
-	r.Begin()
-	r.SetRetries(15, 15)
-	r.SetAutoAck(true)
-	r.OpenReadingPipe(1, pipe)
-	r.StartListening()
-	r.PrintDetails()
-	for {
-		if r.Available() {
-			data, _ := r.Read(4)
-//			fmt.Printf("data: %v\n", data)
-			payload := binary.LittleEndian.Uint32(data)
-			fmt.Printf("Received %v\n", payload)
-		} else {
-			//
-		}
-	}
-}
-*/
 func New(cepin uint8, cspin uint8, spispeed uint32) *RF24 {
 	var r RF24
 	r.cptr = C.new_rf24(C.uint8_t(cepin), C.uint8_t(cspin), C.uint32_t(spispeed))
@@ -172,17 +139,14 @@ func (r *RF24) OpenReadingPipeDeprecated(pipe uint8, address uint64) {
 	C.rf24_openReadingPipeDeprecated(r.cptr, C.uint8_t(pipe), C.uint64_t(address))
 }
 
-// TODO: implement Reader/Writer compatible interfaces
 func (r *RF24) Write(data []byte, length uint8) bool {
 	return gobool(C.rf24_write(r.cptr, unsafe.Pointer(&data[0]), C.uint8_t(length)))
 }
 
-// TODO: String() method would be great
 func (r *RF24) PrintDetails() {
 	C.rf24_printDetails(r.cptr)
 }
 
-// TODO: create Pipe type, make this a func on Pipe
 func (r *RF24) AvailablePipe() (bool, uint8) {
 	var pipe C.uint8_t
 	available := gobool(C.rf24_available_pipe(r.cptr, &pipe))

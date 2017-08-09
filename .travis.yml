@@ -1,11 +1,17 @@
 language: go
 
+services:
+  - docker
+
 go:
-  - tip
+  - 1.8.3
 
 sudo: required
 
 install: true
 
+before_script:
+  - sudo make
+
 script:
-  - ./build.sh
+  - go build ./...

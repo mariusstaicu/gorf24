@@ -19,8 +19,9 @@ I developed it on/for the Raspberry Pi running Arch Linux for ARM. The Pi has GP
 
 ## HOW TO INSTALL
 ```
-$> go get github.com/mariusstaicu/gorf24
-$> sudo make install
+$> go get -d github.com/mariusstaicu/gorf24
+$> cd $GOPATH/src/github.com/mariusstaicu/gorf24
+$> sudo make
 ```
 
 # COPYRIGHT AND LICENSE

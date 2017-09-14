@@ -84,6 +84,16 @@ type RF24 struct {
 	buffer      []byte
 }
 
+type Config struct {
+	CEPin uint8
+	CSPin uint8
+	SPISpeed uint32
+}
+
+func NewFromConfig(config Config) *RF24{
+	return New(config.CEPin,config.CSPin,config.SPISpeed)
+}
+
 func New(cepin uint8, cspin uint8, spispeed uint32) *RF24 {
 	var r RF24
 	r.cptr = C.new_rf24(C.uint8_t(cepin), C.uint8_t(cspin), C.uint32_t(spispeed))

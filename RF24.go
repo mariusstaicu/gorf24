@@ -91,10 +91,7 @@ type Config struct {
 }
 
 func NewFromConfig(config Config) *RF24{
-	var r RF24
-	r.cptr = C.new_rf24(C.uint8_t(config.CEPin), C.uint8_t(config.CSPin), C.uint32_t(config.SPISpeed))
-	r.buffer = make([]byte, 128) // max payload length according to nrf24 spec
-	return &r
+	return New(config.CEPin,config.CSPin,config.SPISpeed)
 }
 
 func New(cepin uint8, cspin uint8, spispeed uint32) *RF24 {
